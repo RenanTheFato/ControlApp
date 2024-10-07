@@ -6,7 +6,7 @@ import { verifyOtpService } from '../services/verifyOtpService';
 dotenv.config();
 
 export class verifyOtpController{
-  async verifyUserOtp(req: FastifyRequest, res: FastifyReply) {
+  async handle(req: FastifyRequest, res: FastifyReply) {
     const { email, otp_code } = req.body as { email: string, otp_code: string };
 
     //Search the OTP code

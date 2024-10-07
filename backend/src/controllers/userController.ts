@@ -14,7 +14,7 @@ dotenv.config();
 
 export class userController{
 
-  async createUser(req: FastifyRequest, res: FastifyReply){
+  async handle(req: FastifyRequest, res: FastifyReply){
 
     //Code for recive user informations on req.body as json
     const {username, email, password} = req.body as {username: string, email: string, password: string};
