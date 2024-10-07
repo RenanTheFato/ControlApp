@@ -2,6 +2,7 @@ import {FastifyRequest, FastifyReply} from 'fastify';
 import { connection } from '../database/connection';
 import { randomUUID } from 'crypto';
 import { z } from 'zod'
+import { createUserService } from '../services/userService';
 import nodemailer from 'nodemailer';
 import otpGenerator from 'otp-generator';
 import bcrypt from 'bcryptjs';
@@ -40,16 +41,18 @@ export class userController{
     try {
       validateUser.parse(req.body);
     } catch (error: any) {
-      return res.status(400).send({error: error.erros});
+      return res.status(400).send({error: error.errors});
     };
     
     //Check if the email is already in use by another user
-    const [emails] = await connection.query(`SELECT COUNT(*) AS count FROM ${process.env.TABLE1} WHERE id = ?`, [id]);
+    const [emails] = await connection.query(`SELECT COUNT(*) AS count FROM ${process.env.TABLE1} WHERE email = ?`, [email]);
     const emailFind = (emails as any)[0].count;
 
     if(emailFind > 0){
-      res.status(400).send({error: "The email is already registered."});
+      return res.status(400).send({error: "The email is already registered."});
     };
+    
+    const hashPassword = await bcrypt.hash(password, 10);
 
     //Generate an otp code for two-factor authentication, which provides more security and doesn't allow any e-mail for registration
     const generateOTPCreateAccount = otpGenerator.generate(6,{
@@ -61,14 +64,15 @@ export class userController{
     const formattedOtpForEmail = generateOTPCreateAccount.split('');
 
     const otpCreateAccountExpirationTime = new Date(Date.now() + 15 * 60 * 1000);
-
-    let authCreateAccountTemplateEmail = fs.readFileSync(path.resolve(__dirname ,'.' , 'emails', '2fa.html'), 'utf-8');
-
+    
+    let authCreateAccountTemplateEmail = fs.readFileSync(path.resolve(__dirname ,'..' , 'emails', '2fa.html'), 'utf-8');
+    
     //Create model for 2FA email and send to user
     formattedOtpForEmail.forEach((otpDigit, index) =>{
       authCreateAccountTemplateEmail = authCreateAccountTemplateEmail.replace(`[n${index + 1}]`, otpDigit);
     });
-
+    
+    //Send the email template, but now with the user's data so that authentication can take place
     const emailContent = authCreateAccountTemplateEmail
     .replace('[nome]', username)
     .replace('[ano]', new Date().getFullYear().toString()
@@ -90,7 +94,7 @@ export class userController{
         to:  process.env.NODEMAILER_EMAIL,
         subject: "test",
         html: emailContent
-      }
+      };
 
       try {
         const sent = await transporter.sendMail(configEmail);
@@ -99,16 +103,17 @@ export class userController{
         console.log('Error on send email. ', error);
       }
 
-      await connection.query(`INSERT INTO ${process.env.TABLE2} (email, otp_code, expires_at) VALUES (?,?,?)`,
-      [email, generateOTPCreateAccount, otpCreateAccountExpirationTime]
-      );
+      // Calling the service that will insert the data into a temporary record table, where if verified it will go to the official table, 
+      // and if not it will be deleted, I implemented this to prevent data crowding and prevent the final table.
+      // I hope it's right and optimized :D
+      const CreateUserService = new createUserService();
 
-    const hashPassword = await bcrypt.hash(password, 10);
-
-  }
-
-  async loginUser(req: FastifyRequest, res: FastifyReply){
-
-  }
+      try {
+        const createUser = await CreateUserService.execute({id, username ,email, password: hashPassword ,generateOTPCreateAccount, otpCreateAccountExpirationTime});
+        return res.status(200).send({message: 'OTP code sent, verify your email.'});
+      } catch (error) {
+        return res.status(500).send({error: 'Error on send OTP code.'});
+      }
+    }
 
 }
