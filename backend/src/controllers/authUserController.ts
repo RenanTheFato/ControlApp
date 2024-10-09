@@ -1,7 +1,7 @@
 import { FastifyRequest, FastifyReply  } from 'fastify'
 import { authUserService } from '../services/authUserService'
 
-export class AuthUserController{
+export class authUserController{
   async handle(req: FastifyRequest, res: FastifyReply){
 
     const {email, password} = req.body as {email: string, password: string};

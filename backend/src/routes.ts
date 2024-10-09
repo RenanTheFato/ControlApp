@@ -1,9 +1,10 @@
 import {FastifyInstance, FastifyPluginOptions, FastifyRequest, FastifyReply} from 'fastify';
 import {userController} from './controllers/userController'
 import { verifyOtpController } from './controllers/verifyOtpController';
-import { AuthUserController } from './controllers/authUserController';
+import { authUserController } from './controllers/authUserController';
 import { authUserMiddleware } from './middlewares/userMiddleware';
 import dotenv from 'dotenv';
+import { refreshTokenUserController } from './controllers/refreshTokenUserController';
 
 dotenv.config();
 
@@ -18,10 +19,14 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
   });
 
   fastify.post('/singin', async(req: FastifyRequest, res: FastifyReply) => {
-    return new AuthUserController().handle(req, res);
+    return new authUserController().handle(req, res);
   });
 
   fastify.get('/logged', { preHandler: authUserMiddleware }, async(req: FastifyRequest, res: FastifyReply) => {
     return res.send({id: 1, content: "test middleware"});
+  });
+
+  fastify.post('/refresh-token', async(req: FastifyRequest, res: FastifyReply) => {
+    return new refreshTokenUserController().handle(req, res);
   });
 }

@@ -1,11 +1,13 @@
 import Fastify from 'fastify';
 import cors from '@fastify/cors'
 import { routes } from './routes';
+import { automaticRemoveOtpExpired } from './auto/automaticRemoveOtpExpired';
 
 const server = Fastify({  logger: true  });
 
 const start = async() =>{
 
+  automaticRemoveOtpExpired.execute();
   await server.register(cors);
   await server.register(routes);
 

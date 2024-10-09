@@ -9,14 +9,18 @@ type JwtPayLoad = {
 
 const authUserMiddleware =
   async (req: FastifyRequest, res: FastifyReply, done: HookHandlerDoneFunction) => {
+    // Extract the authorization header from the request
     const { authorization } = req.headers;
 
+    // If the authorization header is missing, return a 401 error
     if (!authorization) {
       return res.status(401).send({ error: 'Token is missing!' });
     }
 
+    // Extract the token from the "Bearer <token>" format
     const token = authorization.split(' ')[1];
 
+    // Verifications for user to login with success
     try {
       const { id } = jwt.verify(token, process.env.JWTPASS ?? '') as JwtPayLoad;
 

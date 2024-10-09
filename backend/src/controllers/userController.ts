@@ -15,7 +15,6 @@ dotenv.config();
 export class userController{
 
   async handle(req: FastifyRequest, res: FastifyReply){
-
     //Code for recive user informations on req.body as json
     const {username, email, password} = req.body as {username: string, email: string, password: string};
 
@@ -103,9 +102,9 @@ export class userController{
         console.log('Error on send email. ', error);
       }
 
-      // Calling the service that will insert the data into a temporary record table, where if verified it will go to the official table, 
-      // and if not it will be deleted, I implemented this to prevent data crowding and prevent the final table.
-      // I hope it's right and optimized :D
+      /* Calling the service that will insert the data into a temporary record table, where if verified it will go to the official table, 
+      and if not it will be deleted, I implemented this to prevent data crowding and prevent the final table.
+      I hope it's right and optimized :D */
       const CreateUserService = new createUserService();
 
       try {
