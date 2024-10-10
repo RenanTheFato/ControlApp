@@ -26,11 +26,13 @@ export class authUserService{
       throw new Error("Invalid email or password");
     }
 
+    const { password: _, ...userLogin } = verifyUser;
+
     // Delete any existing refresh tokens for the user in the refresh token table and generate a new JWT token
+    await connection.query(`UPDATE ${process.env.TABLE1} SET refresh_token = NULL WHERE refresh_token = ?`, [verifyUser.refresh_token]);
     await connection.query(`DELETE FROM ${process.env.TABLE3} WHERE id_user = ?`,[verifyUser.id]);
     const token = jwt.sign({ id: verifyUser.id }, process.env.JWTPASS ?? '', { expiresIn: '3d' });
 
-    const { password: _, ...userLogin } = verifyUser;
 
     // Call the method that will generate a new refresh token for the user
     const GenerateRefreshToken = new generateRefreshToken();
