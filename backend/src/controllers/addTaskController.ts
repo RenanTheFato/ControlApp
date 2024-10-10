@@ -39,12 +39,12 @@ export class addTaskController{
       return res.status(400).send({error: error.errors});
      }
 
-     const idUser = "4066a2d6b09b4cb8";
+     const idUser = req.user.id as string;
 
      const AddTaskService = new addTaskService();
 
      try {
-      await AddTaskService.execute({ id, name, description, status, deadline, price, idUser: idUser as string});
+      await AddTaskService.execute({ id, name, description, status, deadline, price, idUser});
       return res.status(200).send({ message: "Task has been created." });
      } catch (error) {
       return res.status(500).send({ error: `Error on create task: ${error}.` });
