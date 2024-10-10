@@ -23,7 +23,8 @@ export class refreshTokenUserService{
     const token = jwt.sign({ id: refreshToken.id_user }, process.env.JWTPASS ?? '', { expiresIn: '3d' });
 
     if (refreshTokenExpired) {
-      await connection.query(`DELETE FROM ${process.env.TABLE3} WHERE id_user == id`);
+      await connection.query(`DELETE FROM ${process.env.TABLE3} WHERE id_user = ?`,
+      [refreshToken.id_user]);
 
       // Generate a new refresh token for the user
       const GenerateRefreshToken = new generateRefreshToken();
