@@ -5,15 +5,15 @@ import cron from 'node-cron';
 //as we avoid fake emails and overcrowding the database, which could be a problem
 export class automaticRemoveOtpExpired{
    static execute(){
-    cron.schedule('*/15 * * * *', async () => {
+    cron.schedule('*/1 * * * *', async () => {
       const currentTime = new Date();
       try {
         await connection.query(`DELETE FROM ${process.env.TABLE2} WHERE expires_at < ?`, [currentTime]);
-        console.log("Expired tokens removed.");
+        console.log(`[${new Date().toLocaleTimeString()}] Expired tokens removed.`);
       } catch (error) {
         console.error("Error while removing expired tokens: ", error);
       }
     });
-    console.log("Delete OTP function has called.");
+    console.log(`[${new Date().toLocaleTimeString()}] Delete OTP function has called.`);
   }
 }
