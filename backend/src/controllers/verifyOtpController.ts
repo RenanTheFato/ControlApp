@@ -1,7 +1,7 @@
 import {FastifyRequest, FastifyReply} from 'fastify';
+import { verifyOtpService } from '../services/verifyOtpService';
 import { connection } from '../database/connection';
 import dotenv from 'dotenv';
-import { verifyOtpService } from '../services/verifyOtpService';
 
 dotenv.config();
 

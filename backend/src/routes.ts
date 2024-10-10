@@ -5,6 +5,7 @@ import { authUserController } from './controllers/authUserController';
 import { authUserMiddleware } from './middlewares/userMiddleware';
 import dotenv from 'dotenv';
 import { refreshTokenUserController } from './controllers/refreshTokenUserController';
+import { addTaskController } from './controllers/addTaskController';
 
 dotenv.config();
 
@@ -22,11 +23,11 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
     return new authUserController().handle(req, res);
   });
 
-  fastify.get('/logged', { preHandler: authUserMiddleware }, async(req: FastifyRequest, res: FastifyReply) => {
-    return res.send({id: 1, content: "test middleware"});
-  });
-
   fastify.post('/refresh-token', async(req: FastifyRequest, res: FastifyReply) => {
     return new refreshTokenUserController().handle(req, res);
+  });
+
+  fastify.post('/add-task', { preHandler: authUserMiddleware }, async(req: FastifyRequest, res: FastifyReply) => {
+    return new addTaskController().handle(req,res);
   });
 }

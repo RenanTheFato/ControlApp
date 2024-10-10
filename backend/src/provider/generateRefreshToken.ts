@@ -1,6 +1,9 @@
 import { randomUUID } from "crypto";
 import { connection } from "../database/connection";
 import daysj from 'dayjs';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 export class generateRefreshToken{
   async execute(id_user: string){

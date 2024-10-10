@@ -1,8 +1,10 @@
 import { connection } from "../database/connection";
+import { generateRefreshToken } from "../provider/generateRefreshToken";
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import 'dotenv'
-import { generateRefreshToken } from "../provider/generateRefreshToken";
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 interface AuthUserProps{
   email: string,

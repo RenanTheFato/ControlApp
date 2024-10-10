@@ -1,4 +1,7 @@
 import {connection} from '../database/connection';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 interface createUserProps{
   id: string,

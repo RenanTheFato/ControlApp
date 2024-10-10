@@ -1,14 +1,16 @@
-import { FastifyRequest, FastifyReply, HookHandlerDoneFunction } from 'fastify'
+import { FastifyRequest, FastifyReply, HookHandlerDoneFunction,  } from 'fastify'
 import { connection } from '../database/connection'
 import jwt from 'jsonwebtoken'
-import 'dotenv'
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 type JwtPayLoad = {
   id: number
 }
 
 const authUserMiddleware =
-  async (req: FastifyRequest, res: FastifyReply, done: HookHandlerDoneFunction) => {
+  async (req: FastifyRequest, res: FastifyReply) => {
     // Extract the authorization header from the request
     const { authorization } = req.headers;
 
@@ -31,7 +33,7 @@ const authUserMiddleware =
 
       req.user = userLogged;
 
-      done();
+      return;
 
     } catch (error) {
       return res.status(401).send({ error: 'Token is invalid!' });

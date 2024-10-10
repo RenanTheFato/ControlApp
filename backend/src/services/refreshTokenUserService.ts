@@ -1,8 +1,8 @@
 import { connection } from "../database/connection";
+import { generateRefreshToken } from "../provider/generateRefreshToken";
 import jwt from 'jsonwebtoken';
 import dayjs from 'dayjs';
 import dotenv from 'dotenv';
-import { generateRefreshToken } from "../provider/generateRefreshToken";
 
 dotenv.config();
 
