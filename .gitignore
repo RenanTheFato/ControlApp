@@ -1,3 +1,5 @@
 backend/node_modules
 backend/.env
 backend/src/emails
+
+frontend/node_modules
