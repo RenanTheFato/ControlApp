@@ -6,6 +6,7 @@ module.exports = {
       colors:{
         'carbon-black': '#2C2C2C',
         'off-white': '#FBF7F5',
+        transparent: 'transparent',
         'azure-radiance': {
           50: '#f1f8fd',
           10: '#dfeffa',
@@ -32,8 +33,11 @@ module.exports = {
         900: '#243285',
         950: '#161c50',
     }, 
-      }
-    },
+  },
+  boxShadow:{
+    'signature': '4px 6px 16px 0px rgba(0, 0, 0, 0.25)'
+  }
+},
   },
   plugins: [],
 }
