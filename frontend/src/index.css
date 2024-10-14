@@ -1,3 +1,27 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: "Outfit";
+  src: url(./fonts/outfit/Outfit-Regular.ttf) format('ttf');
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Outfit-Bold";
+  src: url(./fonts/outfit/Outfit-Bold.ttf) format('ttf');
+  font-style: bold;
+  font-display: swap;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Outfit-Italic";
+  src: url(./fonts/outfit/Outfit-Regular.ttf) format('ttf');
+  font-style: italic;
+  font-display: swap;
+  font-weight: 400;
+}
