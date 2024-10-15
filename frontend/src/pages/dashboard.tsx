@@ -63,7 +63,7 @@ function Dashboard() {
             </div>
           </section>
 
-          <section className="m-4 py-4 font-outfit font-semibold space-y-4">
+          <section className="m-4 bg-red-200 py-4 font-outfit font-semibold space-y-4">
             <h1 className="text-carbon-black -mt-2 mb-6">Principais Tarefas</h1>
 
             <article className="w-full bg-zinc-500 bg-opacity-30 rounded-md shadow-signature flex flex-col">
@@ -123,8 +123,47 @@ function Dashboard() {
                 </span>
               </div>
             </article>
+          </section>
+
+          <section className="m-4 bg-blue-200 py-4 font-outfit font-semibold space-y-4">
+            <h1 className="text-carbon-black -mt-2 mb-6">Avisos</h1>
+
+            <article className="w-full bg-zinc-500 bg-opacity-30 rounded-md shadow-signature flex flex-col">
+              <div className="flex flex-col mx-4 my-2">
+                <h1 className="text-carbon-black text-lg">
+                  {"{Titulo do Aviso}"}
+                </h1>
+                <span className="text-carbon-black text-xs text-justify">
+                  {"{Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius quia optio molestias, neque numquam nisi quaerat esse suscipit delectus consectetur qui rerum fugiat, saepe officiis perspiciatis repudiandae ut at ad?}"}<br/>
+                </span>
+              </div>
+            </article>
+
+						<article className="w-full bg-zinc-500 bg-opacity-30 rounded-md shadow-signature flex flex-col">
+              <div className="flex flex-col mx-4 my-2">
+                <h1 className="text-carbon-black text-lg">
+                  {"{Titulo do Aviso}"}
+                </h1>
+                <span className="text-carbon-black text-xs text-justify">
+                  {"{Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius quia optio molestias, neque numquam nisi quaerat esse suscipit delectus consectetur qui rerum fugiat, saepe officiis perspiciatis repudiandae ut at ad?}"}<br/>
+                </span>
+              </div>
+            </article>
+
+						<article className="w-full bg-zinc-500 bg-opacity-30 rounded-md shadow-signature flex flex-col">
+              <div className="flex flex-col mx-4 my-2">
+                <h1 className="text-carbon-black text-lg">
+                  {"{Titulo do Aviso}"}
+                </h1>
+                <span className="text-carbon-black text-xs text-justify">
+                  {"{Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius quia optio molestias, neque numquam nisi quaerat esse suscipit delectus consectetur qui rerum fugiat, saepe officiis perspiciatis repudiandae ut at ad?}"}<br/>
+                </span>
+              </div>
+            </article>
 
           </section>
+
+					
         </main>
       </div>
     </>
