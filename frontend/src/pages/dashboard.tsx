@@ -31,7 +31,57 @@ function Dashboard() {
   return (
     <>
       <div className="w-full min-h-screen bg-off-white flex">
-        <main className="w-full h-full m-4 flex flex-col space-y-6 shadow-signature">
+        
+        <section className="w-full fixed bottom-4 left-0 right-10 flex flex-row z-10 2xl:relative 2xl:max-h-screen 2xl:top-2 2xl:w-auto">
+          <nav className="w-full bg-off-white rounded shadow-signature mx-10 flex justify-between items-center 2xl:w-72 2xl:flex-col 2xl:items-start 2xl:mx-2 2xl:space-y-1 2xl:justify-normal">
+
+            <div className="ml-2 rounded items-center bg-bay-of-many-900 flex 2xl:border-b-2 2xl:border-blue-200 2xl:w-full 2xl:overflow-hidden 2xl:ml-0">
+              <button className="text-off-white p-4 2xl:flex 2xl:flex-row 2xl:items-center 2xl:space-x-2 2xl:w-full">
+                <IoHome />
+                <p className="hidden text-white 2xl:visible 2xl:block">Home</p>
+              </button>
+            </div>
+
+            <div className="p-4 items-center flex 2xl:border-b-2 2xl:border-blue-200 2xl:w-full 2xl:overflow-hidden 2xl:ml-0">
+              <button className="text-carbon-black 2xl:flex 2xl:flex-row 2xl:items-center 2xl:space-x-2 2xl:w-full">
+                <FaClipboardList />
+                <p className="hidden text-carbon-black 2xl:visible 2xl:block">Tarefas</p>
+              </button>
+            </div>
+
+            <div className="p-4 items-center flex 2xl:border-b-2 2xl:border-blue-200 2xl:w-full 2xl:overflow-hidden 2xl:ml-0">
+              <button className="text-carbon-black 2xl:flex 2xl:flex-row 2xl:items-center 2xl:space-x-2 2xl:w-full">
+                <VscGraph />
+                <p className="hidden text-carbon-black 2xl:visible 2xl:block">Estatísticas</p>
+              </button>
+            </div>
+
+            <div className="p-4 items-center flex 2xl:border-b-2 2xl:border-blue-200 2xl:w-full 2xl:overflow-hidden 2xl:ml-0">
+              <button className="text-carbon-black 2xl:flex 2xl:flex-row 2xl:items-center 2xl:space-x-2 2xl:w-full">
+                <FaCrown />
+                <p className="hidden text-carbon-black 2xl:visible 2xl:block">Planos</p>
+              </button>
+            </div>
+
+            <div className="p-4 items-center flex 2xl:border-b-2 2xl:border-blue-200 2xl:w-full 2xl:overflow-hidden 2xl:ml-0">
+              <button className="text-carbon-black 2xl:flex 2xl:flex-row 2xl:items-center 2xl:space-x-2 2xl:w-full">
+                <FaUser />
+                <p className="hidden text-carbon-black 2xl:visible 2xl:block">Seu Perfil</p>
+              </button>
+            </div>
+
+
+
+            <div className="p-4 mr-2 items-center flex 2xl:border-b-2 2xl:border-blue-200 2xl:w-full 2xl:overflow-hidden 2xl:mr-0">
+              <button className="text-carbon-black 2xl:flex 2xl:flex-row 2xl:items-center 2xl:space-x-2 2xl:w-full">
+                <FaGear />
+                <p className="hidden text-carbon-black 2xl:visible 2xl:block">Configurações</p>
+              </button>
+            </div>
+          </nav>
+        </section>
+        
+        <main className="w-full h-full m-4 flex flex-col space-y-6 shadow-signature 2xl:m-2">
           <div className="w-full p-4 flex flex-row shadow-lg justify-between items-center">
             <h1 className="font-outfit text-xl text-carbon-black">
               Bem Vindo {"Renan"} !
@@ -65,16 +115,14 @@ function Dashboard() {
                   <span className="font-semibold">{"R$: 120,00"}</span>
                   <div className="flex flex-row items-center justify-between">
                     <span
-                      className={`text-center mx-2 ${
-                        number >= 1 ? "text-green-600" : "text-red-400"
-                      }`}
+                      className={`text-center mx-2 ${number >= 1 ? "text-green-600" : "text-red-400"
+                        }`}
                     >
                       {number >= 1 ? <BsGraphUpArrow /> : <BsGraphDownArrow />}
                     </span>
                     <span
-                      className={`text-center text-xs ${
-                        number >= 1 ? "text-green-600" : "text-red-400"
-                      }`}
+                      className={`text-center text-xs ${number >= 1 ? "text-green-600" : "text-red-400"
+                        }`}
                     >
                       [50%]
                     </span>
@@ -85,161 +133,123 @@ function Dashboard() {
             </div>
           </section>
 
-          <section className="m-4 py-4 font-outfit font-semibold space-y-4">
-            <h1 className="text-carbon-black -mt-2 mb-6">Principais Tarefas</h1>
+          <div className="flex flex-col 2xl:flex-row">
+            <section className="2xl:w-full m-4 py-4 font-outfit font-semibold space-y-4">
+              <h1 className="text-carbon-black -mt-6 mb-6 2xl:mb-2">Principais Tarefas</h1>
 
-            <article className="w-full bg-zinc-500 bg-opacity-30 rounded-md shadow-signature flex flex-col">
-              <div className="flex flex-col mx-4 my-2">
-                <h1 className="text-carbon-black text-lg">
-                  {"{Titulo da Tarefa}"}
-                </h1>
-                <span className="text-carbon-black text-xs">
-                  {"{Destinatário}"}
-                </span>
-              </div>
+              <article className="w-full  bg-zinc-500 bg-opacity-30 rounded-md shadow-signature flex flex-col 2xl:min-h-24 2xl:max-h-24">
+                <div className="flex flex-col mx-4 my-2">
+                  <h1 className="text-carbon-black text-lg">
+                    {"{Titulo da Tarefa}"}
+                  </h1>
+                  <span className="text-carbon-black text-xs">
+                    {"{Destinatário}"}
+                  </span>
+                </div>
+                <div className="flex flex-row items-center justify-between mx-4 mb-2 2xl:mt-2">
+                  <span className="text-carbon-black text-sm">
+                    {"{Data de Entrega}"}
+                  </span>
+                  <span className="text-carbon-black text-sm font-semibold">
+                    {"{Valor}"}
+                  </span>
+                </div>
+              </article>
 
-              <div className="flex flex-row items-center justify-between mx-4 mb-2">
-                <span className="text-carbon-black text-sm">
-                  {"{Data de Entrega}"}
-                </span>
-                <span className="text-carbon-black text-sm font-semibold">
-                  {"{Valor}"}
-                </span>
-              </div>
-            </article>
+              <article className="w-full bg-zinc-500 bg-opacity-30 rounded-md shadow-signature flex flex-col 2xl:min-h-24 2xl:max-h-24">
+                <div className="flex flex-col mx-4 my-2">
+                  <h1 className="text-carbon-black text-lg">
+                    {"{Titulo da Tarefa}"}
+                  </h1>
+                  <span className="text-carbon-black text-xs">
+                    {"{Destinatário}"}
+                  </span>
+                </div>
+                <div className="flex flex-row items-center justify-between mx-4 mb-2 2xl:mt-2">
+                  <span className="text-carbon-black text-sm">
+                    {"{Data de Entrega}"}
+                  </span>
+                  <span className="text-carbon-black text-sm font-semibold">
+                    {"{Valor}"}
+                  </span>
+                </div>
+              </article>
 
-            <article className="w-full bg-zinc-500 bg-opacity-30 rounded-md shadow-signature flex flex-col">
-              <div className="flex flex-col mx-4 my-2">
-                <h1 className="text-carbon-black text-lg">
-                  {"{Titulo da Tarefa}"}
-                </h1>
-                <span className="text-carbon-black text-xs">
-                  {"{Destinatário}"}
-                </span>
-              </div>
-              <div className="flex flex-row items-center justify-between mx-4 mb-2">
-                <span className="text-carbon-black text-sm">
-                  {"{Data de Entrega}"}
-                </span>
-                <span className="text-carbon-black text-sm font-semibold">
-                  {"{Valor}"}
-                </span>
-              </div>
-            </article>
+              <article className="w-full bg-zinc-500 bg-opacity-30 rounded-md shadow-signature flex flex-col 2xl:min-h-24 2xl:max-h-24">
+                <div className="flex flex-col mx-4 my-2">
+                  <h1 className="text-carbon-black text-lg">
+                    {"{Titulo da Tarefa}"}
+                  </h1>
+                  <span className="text-carbon-black text-xs">
+                    {"{Destinatário}"}
+                  </span>
+                </div>
+                <div className="flex flex-row items-center justify-between mx-4 mb-2 2xl:mt-2">
+                  <span className="text-carbon-black text-sm">
+                    {"{Data de Entrega}"}
+                  </span>
+                  <span className="text-carbon-black text-sm font-semibold">
+                    {"{Valor}"}
+                  </span>
+                </div>
+              </article>
+            </section>
+            
+            
+            <section className="2xl:w-full m-4 py-4 font-outfit font-semibold space-y-4 2xl:mb-0">
+              <h1 className="text-carbon-black -mt-6 mb-6 2xl:mb-2">Avisos</h1>
+              <article className="w-full bg-zinc-500 bg-opacity-30 rounded-md shadow-signature flex flex-col 2xl:min-h-24 2xl:max-h-24">
+                <div className="flex flex-col mx-4 my-2">
+                  <h1 className="text-carbon-black text-lg">
+                    {"{Titulo do Aviso}"}
+                  </h1>
+                  <span className="text-carbon-black text-xs text-justify">
+                    {
+                      "{Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius quia optio molestias, neque numquam nisi quaerat esse suscipit delectus consectetur qui rerum fugiat, saepe officiis perspiciatis repudiandae ut at ad?}"
+                    }
+                    <br />
+                  </span>
+                </div>
+              </article>
 
-            <article className="w-full bg-zinc-500 bg-opacity-30 rounded-md shadow-signature flex flex-col">
-              <div className="flex flex-col mx-4 my-2">
-                <h1 className="text-carbon-black text-lg">
-                  {"{Titulo da Tarefa}"}
-                </h1>
-                <span className="text-carbon-black text-xs">
-                  {"{Destinatário}"}
-                </span>
-              </div>
-              <div className="flex flex-row items-center justify-between mx-4 mb-2">
-                <span className="text-carbon-black text-sm">
-                  {"{Data de Entrega}"}
-                </span>
-                <span className="text-carbon-black text-sm font-semibold">
-                  {"{Valor}"}
-                </span>
-              </div>
-            </article>
-          </section>
+              <article className="w-full bg-zinc-500 bg-opacity-30 rounded-md shadow-signature flex flex-col 2xl:min-h-24 2xl:max-h-24">
+                <div className="flex flex-col mx-4 my-2">
+                  <h1 className="text-carbon-black text-lg">
+                    {"{Titulo do Aviso}"}
+                  </h1>
+                  <span className="text-carbon-black text-xs text-justify">
+                    {
+                      "{Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius quia optio molestias, neque numquam nisi quaerat esse suscipit delectus consectetur qui rerum fugiat, saepe officiis perspiciatis repudiandae ut at ad?}"
+                    }
+                    <br />
+                  </span>
+                </div>
+              </article>
 
-          <section className="m-4 py-4 font-outfit font-semibold space-y-4">
-            <h1 className="text-carbon-black -mt-6 mb-6">Avisos</h1>
+              <article className="w-full bg-zinc-500 bg-opacity-30 rounded-md shadow-signature flex flex-col 2xl:min-h-24 2xl:max-h-24">
+                <div className="flex flex-col mx-4 my-2">
+                  <h1 className="text-carbon-black text-lg">
+                    {"{Titulo do Aviso}"}
+                  </h1>
+                  <span className="text-carbon-black text-xs text-justify">
+                    {
+                      "{Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius quia optio molestias, neque numquam nisi quaerat esse suscipit delectus consectetur qui rerum fugiat, saepe officiis perspiciatis repudiandae ut at ad?}"
+                    }
+                    <br />
+                  </span>
+                </div>
+              </article>
+            </section>
+          </div>
 
-            <article className="w-full bg-zinc-500 bg-opacity-30 rounded-md shadow-signature flex flex-col">
-              <div className="flex flex-col mx-4 my-2">
-                <h1 className="text-carbon-black text-lg">
-                  {"{Titulo do Aviso}"}
-                </h1>
-                <span className="text-carbon-black text-xs text-justify">
-                  {
-                    "{Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius quia optio molestias, neque numquam nisi quaerat esse suscipit delectus consectetur qui rerum fugiat, saepe officiis perspiciatis repudiandae ut at ad?}"
-                  }
-                  <br />
-                </span>
-              </div>
-            </article>
-
-            <article className="w-full bg-zinc-500 bg-opacity-30 rounded-md shadow-signature flex flex-col">
-              <div className="flex flex-col mx-4 my-2">
-                <h1 className="text-carbon-black text-lg">
-                  {"{Titulo do Aviso}"}
-                </h1>
-                <span className="text-carbon-black text-xs text-justify">
-                  {
-                    "{Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius quia optio molestias, neque numquam nisi quaerat esse suscipit delectus consectetur qui rerum fugiat, saepe officiis perspiciatis repudiandae ut at ad?}"
-                  }
-                  <br />
-                </span>
-              </div>
-            </article>
-
-            <article className="w-full bg-zinc-500 bg-opacity-30 rounded-md shadow-signature flex flex-col">
-              <div className="flex flex-col mx-4 my-2">
-                <h1 className="text-carbon-black text-lg">
-                  {"{Titulo do Aviso}"}
-                </h1>
-                <span className="text-carbon-black text-xs text-justify">
-                  {
-                    "{Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius quia optio molestias, neque numquam nisi quaerat esse suscipit delectus consectetur qui rerum fugiat, saepe officiis perspiciatis repudiandae ut at ad?}"
-                  }
-                  <br />
-                </span>
-              </div>
-            </article>
-          </section>
-
-          <section className="w-full fixed bottom-4 left-0 right-10 flex flex-row z-10">
-            <nav className="w-full bg-off-white rounded shadow-signature mx-10 flex justify-between items-center">
-              <div className="p-4 ml-2 rounded items-center flex bg-bay-of-many-900">
-                <button className="text-off-white">
-                  <IoHome />
-                </button>
-              </div>
-
-              <div className="p-4 items-center flex">
-                <button className="text-carbon-black">
-                  <FaClipboardList />
-                </button>
-              </div>
-
-              <div className="p-4 items-center flex">
-                <button className="text-carbon-black">
-                  <VscGraph />
-                </button>
-              </div>
-
-              <div className="p-4 items-center flex">
-                <button className="text-carbon-black">
-                  <FaCrown />
-                </button>
-              </div>
-
-              <div className="p-4 items-center flex">
-                <button className="text-carbon-black">
-                  <FaUser />
-                </button>
-              </div>
-
-              <div className="p-4 mr-2 items-center flex">
-                <button className="text-carbon-black">
-                  <FaGear />
-                </button>
-              </div>
-            </nav>
-          </section>
-
-          <footer className="w-full bg-gray-200 text-center p-4 mt-2 z-20">
+          <footer className="w-full bg-gray-200 text-center p-4 mt-2 z-20 2xl:m-0">
             <p className="text-gray-600 font-outfit text-sm">
               © {new Date().getFullYear()} Domain's Productions. Todos os
               direitos reservados.
             </p>
           </footer>
         </main>
+
       </div>
     </>
   );
