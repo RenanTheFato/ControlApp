@@ -8,14 +8,26 @@ import { VscGraph } from "react-icons/vsc";
 import { FaCrown } from "react-icons/fa6";
 import { FaUser } from "react-icons/fa";
 import { FaGear } from "react-icons/fa6";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+
+import { api } from "../service/api";
+
+interface tasksProps {
+  id: string,
+  name: string,
+  description: string,
+  deadline: string,
+  price: string,
+  status: number
+}
 
 function Dashboard() {
   const number = -1;
 
+  const [tasks, setTasks] = useState<tasksProps[]>([])
+
   useEffect(() => {
     const handleScroll = (event: any) => {
-      event.preventDefault();
       window.scrollBy({
         top: event.deltaY * 0.2,
         behavior: "smooth",
@@ -23,17 +35,30 @@ function Dashboard() {
     };
 
     window.addEventListener("wheel", handleScroll);
-    return () => {
+    () => {
       window.removeEventListener("wheel", handleScroll);
     };
+
+    async function fetchTasks() {
+      const token = localStorage.getItem('authToken');
+
+      const response = await api.get("/list-tasks", {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      setTasks(response.data)
+    };
+
+    fetchTasks();
   }, []);
 
   return (
     <>
       <div className="w-full min-h-screen bg-off-white flex">
-        
-        <section className="w-full fixed bottom-4 left-0 right-10 flex flex-row z-10 2xl:relative 2xl:max-h-screen 2xl:top-2 2xl:w-auto">
-          <nav className="w-full bg-off-white rounded shadow-signature mx-10 flex justify-between items-center 2xl:w-72 2xl:flex-col 2xl:items-start 2xl:mx-2 2xl:space-y-1 2xl:justify-normal">
+
+        <section className="w-full fixed bottom-4 left-0 right-10 flex flex-row z-10 2xl:relative 2xl:max-h-screen 2xl:top-0 2xl:w-auto 2xl:h-screen">
+          <nav className="w-full bg-off-white rounded shadow-signature mx-10 flex justify-between items-center 2xl:w-72 2xl:flex-col 2xl:items-start 2xl:m-0 2xl:mr-2 2xl:space-y-1 2xl:justify-normal 2xl:h-full">
 
             <div className="ml-2 rounded items-center bg-bay-of-many-900 flex 2xl:border-b-2 2xl:border-blue-200 2xl:w-full 2xl:overflow-hidden 2xl:ml-0">
               <button className="text-off-white p-4 2xl:flex 2xl:flex-row 2xl:items-center 2xl:space-x-2 2xl:w-full">
@@ -80,8 +105,8 @@ function Dashboard() {
             </div>
           </nav>
         </section>
-        
-        <main className="w-full h-full m-4 flex flex-col space-y-6 shadow-signature 2xl:m-2">
+
+        <main className="w-full h-full m-4 flex flex-col space-y-6 shadow-signature 2xl:m-0 2xl:flex-grow 2xl:overflow-y-auto 2xl:min-h-screen">
           <div className="w-full p-4 flex flex-row shadow-lg justify-between items-center">
             <h1 className="font-outfit text-xl text-carbon-black">
               Bem Vindo {"Renan"} !
@@ -136,66 +161,28 @@ function Dashboard() {
           <div className="flex flex-col 2xl:flex-row">
             <section className="2xl:w-full m-4 py-4 font-outfit font-semibold space-y-4">
               <h1 className="text-carbon-black -mt-6 mb-6 2xl:mb-2">Principais Tarefas</h1>
-
-              <article className="w-full  bg-zinc-500 bg-opacity-30 rounded-md shadow-signature flex flex-col 2xl:min-h-24 2xl:max-h-24">
-                <div className="flex flex-col mx-4 my-2">
-                  <h1 className="text-carbon-black text-lg">
-                    {"{Titulo da Tarefa}"}
-                  </h1>
-                  <span className="text-carbon-black text-xs">
-                    {"{Destinatário}"}
-                  </span>
-                </div>
-                <div className="flex flex-row items-center justify-between mx-4 mb-2 2xl:mt-2">
-                  <span className="text-carbon-black text-sm">
-                    {"{Data de Entrega}"}
-                  </span>
-                  <span className="text-carbon-black text-sm font-semibold">
-                    {"{Valor}"}
-                  </span>
-                </div>
-              </article>
-
-              <article className="w-full bg-zinc-500 bg-opacity-30 rounded-md shadow-signature flex flex-col 2xl:min-h-24 2xl:max-h-24">
-                <div className="flex flex-col mx-4 my-2">
-                  <h1 className="text-carbon-black text-lg">
-                    {"{Titulo da Tarefa}"}
-                  </h1>
-                  <span className="text-carbon-black text-xs">
-                    {"{Destinatário}"}
-                  </span>
-                </div>
-                <div className="flex flex-row items-center justify-between mx-4 mb-2 2xl:mt-2">
-                  <span className="text-carbon-black text-sm">
-                    {"{Data de Entrega}"}
-                  </span>
-                  <span className="text-carbon-black text-sm font-semibold">
-                    {"{Valor}"}
-                  </span>
-                </div>
-              </article>
-
-              <article className="w-full bg-zinc-500 bg-opacity-30 rounded-md shadow-signature flex flex-col 2xl:min-h-24 2xl:max-h-24">
-                <div className="flex flex-col mx-4 my-2">
-                  <h1 className="text-carbon-black text-lg">
-                    {"{Titulo da Tarefa}"}
-                  </h1>
-                  <span className="text-carbon-black text-xs">
-                    {"{Destinatário}"}
-                  </span>
-                </div>
-                <div className="flex flex-row items-center justify-between mx-4 mb-2 2xl:mt-2">
-                  <span className="text-carbon-black text-sm">
-                    {"{Data de Entrega}"}
-                  </span>
-                  <span className="text-carbon-black text-sm font-semibold">
-                    {"{Valor}"}
-                  </span>
-                </div>
-              </article>
+              {tasks.slice(0, 3).map((item) => (
+                <article key={item.id} className="w-full  bg-zinc-500 bg-opacity-30 rounded-md shadow-signature flex flex-col 2xl:min-h-24 2xl:max-h-24">
+                  <div className="flex flex-col mx-4 my-2">
+                    <h1 className="text-carbon-black text-lg">
+                      {item.name}
+                    </h1>
+                    <span className="text-carbon-black text-xs">
+                      {item.name}
+                    </span>
+                  </div>
+                  <div className="flex flex-row items-center justify-between mx-4 mb-2 2xl:mt-2">
+                    <span className="text-carbon-black text-sm">
+                    {new Date(item.deadline).toLocaleDateString('pt-BR')}
+                    </span>
+                    <span className="text-carbon-black text-sm font-semibold">
+                      {parseFloat(item.price)}
+                    </span>
+                  </div>
+                </article>
+              ))}
             </section>
-            
-            
+
             <section className="2xl:w-full m-4 py-4 font-outfit font-semibold space-y-4 2xl:mb-0">
               <h1 className="text-carbon-black -mt-6 mb-6 2xl:mb-2">Avisos</h1>
               <article className="w-full bg-zinc-500 bg-opacity-30 rounded-md shadow-signature flex flex-col 2xl:min-h-24 2xl:max-h-24">
@@ -241,13 +228,6 @@ function Dashboard() {
               </article>
             </section>
           </div>
-
-          <footer className="w-full bg-gray-200 text-center p-4 mt-2 z-20 2xl:m-0">
-            <p className="text-gray-600 font-outfit text-sm">
-              © {new Date().getFullYear()} Domain's Productions. Todos os
-              direitos reservados.
-            </p>
-          </footer>
         </main>
 
       </div>

@@ -1,13 +1,34 @@
 /// <reference types="vite-plugin-svgr/client" />
-import { useState } from "react";
+import { useState, useRef, FormEvent } from "react";
 import Logo from "../public/logo.svg?react";
 import { FiMail } from "react-icons/fi";
 import { IoMdLock } from "react-icons/io";
 import { MdLightMode } from "react-icons/md";
 import { FaMoon } from "react-icons/fa";
+import { api } from "../service/api";
 
 function LoginForm() {
   const [darkMode, setDarkMode] = useState(false);
+
+  const emailRef = useRef<HTMLInputElement | null>(null);
+  const passwordRef = useRef<HTMLInputElement | null>(null);
+  
+  async function handle(event: FormEvent){
+    event.preventDefault();
+    try {
+      const response = await api.post('/singin',{
+        email: emailRef.current?.value,
+        password: passwordRef.current?.value
+      }
+    );
+    if (response.status === 200) {
+      const { token } = response.data.user
+      localStorage.setItem('authToken', token);
+    }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   function toggleTheme() {
     setDarkMode(!darkMode);
@@ -33,7 +54,7 @@ function LoginForm() {
             </div>
 
             <div className="w-full max-h-[80vh] bg-[#D9D9D9] bg-opacity-30 my-2 rounded-lg shadow-signature sm:w-96 2xl:w-[28rem] dark:shadow-azure-radiance-600">
-              <form className="p-4">
+              <form className="p-4" onSubmit={handle}>
                 <div className="w-full h-10 flex justify-center items-center">
                   <h1 className="text-4xl font-outfit font-semibold text-carbon-black 2xl:text-5xl 2xl:mt-6 dark:text-off-white">
                     Login
@@ -47,6 +68,7 @@ function LoginForm() {
                       type="email"
                       className="w-full p-2 px-8 bg-transparent text-carbon-black font-outfit outline-none border-b-carbon-black border-b-2 placeholder:text-carbon-black 2xl:text-xl dark:text-off-white dark:border-b-off-white dark:placeholder:text-off-white"
                       placeholder="Insira seu email..."
+                      ref={emailRef}
                     />
                   </div>
                   <div className="w-full flex flex-row relative">
@@ -55,6 +77,7 @@ function LoginForm() {
                       type="password"
                       className="w-full p-2 px-8 bg-transparent text-carbon-black font-outfit outline-none border-b-carbon-black border-b-2 placeholder:text-carbon-black 2xl:text-xl dark:text-off-white dark:border-b-off-white dark:placeholder:text-off-white"
                       placeholder="Insira sua senha..."
+                      ref={passwordRef}
                     />
                   </div>
                 </div>
