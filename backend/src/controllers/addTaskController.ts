@@ -9,7 +9,7 @@ dotenv.config();
 
 export class addTaskController{
   async handle(req: FastifyRequest, res: FastifyReply){
-    const { name, description, status, deadline, price } = req.body as { name: string, description: string, status: number, deadline: Date, price: number};
+    const { name, description, status, deadline, price, recipient } = req.body as { name: string, description: string, status: number, deadline: Date, price: number, recipient: string};
 
      //Generate 16 char id for user 
      let id = await randomUUID().replace(/-/g,'').slice(0,16);
@@ -30,7 +30,8 @@ export class addTaskController{
       deadline: z.string().refine(value => !isNaN(new Date(value).getTime()), {
         message: "Invalid date format. Use YYYY-MM-DD."
       }),
-      price: z.number().positive({ message: "The price has to be a positive value" })
+      price: z.number().positive({ message: "The price has to be a positive value" }),
+      recipient: z.string().min(2, {message: "The recipient name doesn't meet the minimum number of characters (2)." }),
      });
 
      try {
@@ -44,7 +45,7 @@ export class addTaskController{
      const AddTaskService = new addTaskService();
 
      try {
-      await AddTaskService.execute({ id, name, description, status, deadline, price, idUser});
+      await AddTaskService.execute({ id, name, description, status, deadline, price, recipient ,idUser});
       return res.status(200).send({ message: "Task has been created." });
      } catch (error) {
       return res.status(500).send({ error: `Error on create task: ${error}.` });

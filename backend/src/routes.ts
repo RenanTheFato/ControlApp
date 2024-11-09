@@ -28,6 +28,9 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
     return new refreshTokenUserController().handle(req, res);
   });
 
+  fastify.get('/authorization', { preHandler: authUserMiddleware }, async(req: FastifyRequest, res: FastifyReply) =>{
+  })
+
   fastify.post('/add-task', { preHandler: authUserMiddleware }, async(req: FastifyRequest, res: FastifyReply) => {
     return new addTaskController().handle(req,res);
   });

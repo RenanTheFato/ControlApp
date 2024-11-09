@@ -11,6 +11,8 @@ import { FaGear } from "react-icons/fa6";
 import { useEffect, useState } from "react";
 
 import { api } from "../service/api";
+import { authData } from "../hooks/authorization";
+import TaskPopup from "../components/taskPopup";
 
 interface tasksProps {
   id: string,
@@ -18,26 +20,22 @@ interface tasksProps {
   description: string,
   deadline: string,
   price: string,
-  status: number
+  status: number,
+  recipient: string,
 }
 
 function Dashboard() {
+
   const number = -1;
 
+  authData();
+
   const [tasks, setTasks] = useState<tasksProps[]>([])
+  const [popupTaskId, setPopupTaskId] = useState<string | null>(null);
+  const closePopup = () => setPopupTaskId(null);
 
   useEffect(() => {
-    const handleScroll = (event: any) => {
-      window.scrollBy({
-        top: event.deltaY * 0.2,
-        behavior: "smooth",
-      });
-    };
 
-    window.addEventListener("wheel", handleScroll);
-    () => {
-      window.removeEventListener("wheel", handleScroll);
-    };
 
     async function fetchTasks() {
       const token = localStorage.getItem('authToken');
@@ -162,23 +160,37 @@ function Dashboard() {
             <section className="2xl:w-full m-4 py-4 font-outfit font-semibold space-y-4">
               <h1 className="text-carbon-black -mt-6 mb-6 2xl:mb-2">Principais Tarefas</h1>
               {tasks.slice(0, 3).map((item) => (
-                <article key={item.id} className="w-full  bg-zinc-500 bg-opacity-30 rounded-md shadow-signature flex flex-col 2xl:min-h-24 2xl:max-h-24">
+                <article key={item.id}
+                  className="w-full bg-zinc-500 bg-opacity-30 rounded-md shadow-signature flex flex-col 2xl:min-h-24 2xl:max-h-24 cursor-pointer"
+                  onClick={() => setPopupTaskId(item.id)}>
                   <div className="flex flex-col mx-4 my-2">
                     <h1 className="text-carbon-black text-lg">
                       {item.name}
                     </h1>
                     <span className="text-carbon-black text-xs">
-                      {item.name}
+                      {item.recipient}
                     </span>
                   </div>
                   <div className="flex flex-row items-center justify-between mx-4 mb-2 2xl:mt-2">
                     <span className="text-carbon-black text-sm">
-                    {new Date(item.deadline).toLocaleDateString('pt-BR')}
+                      {new Date(item.deadline).toLocaleDateString('pt-BR')}
                     </span>
                     <span className="text-carbon-black text-sm font-semibold">
-                      {parseFloat(item.price)}
+                      R$: {parseFloat(item.price)}
                     </span>
                   </div>
+                  {popupTaskId === item.id && (
+                    <TaskPopup
+                      isOpen={true}
+                      taskName={item.name}
+                      taskDescription={item.description}
+                      taskDeadline={item.deadline}
+                      taskRecipient={item.recipient}
+                      taskPrice={item.price}
+                      taskStatus={item.status}
+                      onClose={closePopup}
+                    />
+                  )}
                 </article>
               ))}
             </section>

@@ -15,12 +15,14 @@ function LoginForm() {
   
   async function handle(event: FormEvent){
     event.preventDefault();
+    
     try {
       const response = await api.post('/singin',{
         email: emailRef.current?.value,
         password: passwordRef.current?.value
       }
     );
+
     if (response.status === 200) {
       const { token } = response.data.user
       localStorage.setItem('authToken', token);
