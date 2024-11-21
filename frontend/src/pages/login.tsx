@@ -1,5 +1,6 @@
 /// <reference types="vite-plugin-svgr/client" />
 import { useState, useRef, FormEvent } from "react";
+import { useNavigate } from "react-router-dom";
 import Logo from "../public/logo.svg?react";
 import { FiMail } from "react-icons/fi";
 import { IoMdLock } from "react-icons/io";
@@ -12,10 +13,10 @@ function LoginForm() {
 
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
+  const navigate = useNavigate();
   
   async function handle(event: FormEvent){
     event.preventDefault();
-    
     try {
       const response = await api.post('/singin',{
         email: emailRef.current?.value,
@@ -26,6 +27,7 @@ function LoginForm() {
     if (response.status === 200) {
       const { token } = response.data.user
       localStorage.setItem('authToken', token);
+      navigate("/dashboard")
     }
     } catch (error) {
       console.log(error);

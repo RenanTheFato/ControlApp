@@ -18,7 +18,7 @@ function TaskPopup({ isOpen, taskName, taskDescription, taskRecipient, taskDeadl
       <>
         <div className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm z-20 flex items-center justify-center cursor-default"
           onClick={onClose}>
-          <div className="w-3/4 h-1/2 bg-off-white font-outfit flex flex-col shadow-signature rounded relative"
+          <div className="w-3/4 h-1/2 bg-off-white font-outfit flex flex-col shadow-signature rounded relative md:w-2/4 2xl:w-2/4"
             onClick={(e) => e.stopPropagation()}>
 
             <div className="font-bold text-xl text-carbon-black my-4 mx-2 flex flex-row items-center relative">
