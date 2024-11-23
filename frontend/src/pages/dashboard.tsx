@@ -24,7 +24,7 @@ function Dashboard() {
     <>
       <div className="w-full min-h-screen bg-off-white flex">
 
-        <section className="w-full fixed bottom-4 left-0 right-10 flex flex-row z-10 md:relative md:max-h-screen md:top-0 md:w-auto md:h-screen">
+        <section className="w-full fixed bottom-4 left-0 right-10 flex flex-row z-10 md:relative md:top-0 md:w-auto md:h-screen">
           <nav className="w-full bg-off-white rounded shadow-signature mx-10 flex justify-between items-center md:w-72 md:flex-col md:items-start md:m-0 md:mr-2 md:space-y-1 md:justify-normal md:h-full">
 
             <div className={`ml-2 rounded items-center flex md:border-b-2 md:border-blue-200 md:w-full md:overflow-hidden md:ml-0 ${isActive("/dashboard") ? "bg-bay-of-many-900" : ""}`}>
@@ -71,7 +71,7 @@ function Dashboard() {
           </nav>
         </section>
 
-        <main className="w-full h-full m-4 flex flex-col space-y-6 shadow-signature md:m-0 md:flex-grow md:overflow-y-auto md:min-h-screen">
+        <main className="w-full h-full  flex flex-col space-y-6 shadow-signature md:m-0 md:flex-grow md:overflow-y-auto md:min-h-screen">
           <div className="w-full p-4 flex flex-row shadow-lg justify-between items-center">
             <h1 className="font-outfit text-xl text-carbon-black">
               Bem Vindo {"Renan"} !

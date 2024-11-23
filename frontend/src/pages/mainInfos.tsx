@@ -216,6 +216,7 @@ function MainInfos() {
               </div>
             </article>
           ))}
+          <div className="h-8 md:h-2"></div>
         </section>
       </div>
     </>

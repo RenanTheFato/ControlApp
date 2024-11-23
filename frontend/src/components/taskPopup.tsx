@@ -46,8 +46,8 @@ function TaskPopup({ isOpen, taskName, taskDescription, taskRecipient, taskDeadl
 
             <div className="p-2">Status:
               <span className="text-sm font-normal"> {taskStatus === 1 ? 'Pendente'
-                : taskStatus === 2 ? 'Atrasada'
-                  : taskStatus === 3 ? 'Concluída'
+                : taskStatus === 2 ? 'Concluída'
+                  : taskStatus === 3 ? 'Atrasada'
                     : 'Erro ao obter status'}
               </span>
             </div>
