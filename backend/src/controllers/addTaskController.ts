@@ -25,7 +25,7 @@ export class addTaskController{
 
      const validateTask = z.object({
       name: z.string().min(2, { message: "The task name doesn't meet the minimum number of characters (2)." }),
-      description: z.string().optional(),
+      description: z.string().max(220,{ message: "The description can only support 220 characters" }).optional(),
       status: z.number().min(1, { message: "The status can only be set to a number between 1 and 3"}).max(3, { message: "The status can only be set to a number between 1 and 3" }),
       deadline: z.string().refine(value => !isNaN(new Date(value).getTime()), {
         message: "Invalid date format. Use YYYY-MM-DD."

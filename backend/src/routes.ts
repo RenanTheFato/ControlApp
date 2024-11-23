@@ -7,6 +7,8 @@ import dotenv from 'dotenv';
 import { refreshTokenUserController } from './controllers/refreshTokenUserController';
 import { addTaskController } from './controllers/addTaskController';
 import { listTaskController } from './controllers/listTaskController';
+import { addWarnController } from './controllers/addWarnController';
+import { listWarnController } from './controllers/listWarnController';
 
 dotenv.config();
 
@@ -37,5 +39,13 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
 
   fastify.get('/list-tasks', { preHandler: authUserMiddleware }, async(req: FastifyRequest, res: FastifyReply) => {
     return new listTaskController().handle(req,res);
+  });
+
+  fastify.post('/add-warn', {preHandler: authUserMiddleware}, async(req: FastifyRequest, res: FastifyReply) =>{
+    return new addWarnController().handle(req,res);
+  });
+
+  fastify.get('/list-warns', { preHandler: authUserMiddleware }, async(req: FastifyRequest, res: FastifyReply) => {
+    return new listWarnController().handle(req,res);
   });
 }

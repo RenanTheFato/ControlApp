@@ -31,7 +31,7 @@ function TaskPopup({ isOpen, taskName, taskDescription, taskRecipient, taskDeadl
             </div>
 
             <div className="p-2 relative text-justify font-bold">Descrição:
-              <span className="text-sm font-normal">
+              <span className="text-sm font-normal break-words">
                 {taskDescription}
               </span>
             </div>
